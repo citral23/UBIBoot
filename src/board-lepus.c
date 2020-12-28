@@ -170,14 +170,11 @@ static void sdram_init(void)
 	REG_DDRC_CTRL = DDRC_CTRL_PDT_DIS | DDRC_CTRL_PRET_8 |
 		DDRC_CTRL_UNALIGN | DDRC_CTRL_CKE;
 
-	REG_DDRC_PMEMCTRL0 =  0xaaaa; /* FIXME: ODT registers not configed */
-	REG_DDRC_PMEMCTRL1 =  0;
+	/* use Ingenic's uboot values for the JZ4760B - those registers are undocumented */
+        REG_DDRC_PMEMCTRL0 = 0xff00;
+        REG_DDRC_PMEMCTRL1 = 0xff015555;
+        REG_DDRC_PMEMCTRL2 = 0x55555;
 
-	REG_DDRC_PMEMCTRL2 = 0xaaaaa;
-
-	REG_DDRC_PMEMCTRL3 &= ~(1 << 16);
-	REG_DDRC_PMEMCTRL3 |= (1 << 17);
-	REG_DDRC_PMEMCTRL3 &= ~(1 << 15);
 
 	/* ACTIVE to PRECHARGE command period */
 	tmp = DDR_GET_VALUE(DDR_tRAS, ps);
