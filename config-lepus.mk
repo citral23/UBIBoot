@@ -1,5 +1,6 @@
 GC_FUNCTIONS = True
 USE_SERIAL = True
+# STAGE1_ONLY = True
 # BKLIGHT_ON = True
 # USE_NAND = True
 # USE_UBI = True
