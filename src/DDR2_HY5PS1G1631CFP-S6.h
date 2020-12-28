@@ -14,7 +14,7 @@
 #define DDR_ROW   13 /* ROW : 12 to 14 row address */
 #define DDR_COL   10 /* COL :  8 to 10 column address */
 #define DDR_BANK8  1 /* Banks each chip: 0-4bank, 1-8bank */
-#define DDR_CL     4 /* CAS latency: 1 to 5 */
+#define DDR_CL     6 /* CAS latency: 1 to 5 */
 
 /*
  * DDR2 controller timing1 register, unit: ps
