@@ -18,8 +18,8 @@
 #define DDRC_MMAP1	(DDRC_BASE + 0x28) /* DDR Memory Map Config Register */
 #define DDRC_MDELAY	(DDRC_BASE + 0x2c) /* DDR Memory Map Config Register */
 #define DDRC_CKEL	(DDRC_BASE + 0x30) /* DDR CKE Low if it was set to 0 */
-#define DDRC_PMEMCTRL0	(DDRC_BASE + 0x54)
-#define DDRC_PMEMCTRL1	(DDRC_BASE + 0x50)
+#define DDRC_PMEMCTRL0	(DDRC_BASE + 0x50)
+#define DDRC_PMEMCTRL1	(DDRC_BASE + 0x54)
 #define DDRC_PMEMCTRL2	(DDRC_BASE + 0x58)
 #define DDRC_PMEMCTRL3	(DDRC_BASE + 0x5c)
 

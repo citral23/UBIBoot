@@ -53,7 +53,7 @@ static void pll_init(void)
 	for (i = 0; i < 8; i++)
 		REG_DDRC_CTRL = 0;
 
-	REG_CPM_CPCCR = ((CDIV - 1) << CPM_CPCCR_CDIV_BIT) |
+	REG_CPM_CPCCR = ((CDIV - 1) << CPM_CPCCR_CDIV_BIT)	    |
 		((unsigned int) n2FR[HDIV]  << CPM_CPCCR_HDIV_BIT)  |
 		((unsigned int) n2FR[H2DIV] << CPM_CPCCR_H2DIV_BIT) |
 		((unsigned int) n2FR[PDIV]  << CPM_CPCCR_PDIV_BIT)  |
@@ -99,9 +99,6 @@ static void ddr_mem_init(void)
 		(DDR_TSEL << DDRC_CFG_TSEL_BIT) |
 		(DDR_MSEL << DDRC_CFG_MSEL_BIT) |
 		(DDR_HL << 15) | (DDR_QUAR << 14);
-
-	/* Set CKE High */
-	REG_DDRC_CTRL = DDRC_CTRL_CKE; // ?
 
 	/* PREA */
 	write_lmr(DDRC_LMR_CMD_PREC);
@@ -167,8 +164,8 @@ static void sdram_init(void)
 	REG_DDRC_CTRL = DDRC_CTRL_RESET;
 	udelay(300);
 
-	REG_DDRC_CTRL = DDRC_CTRL_PDT_DIS | DDRC_CTRL_PRET_8 |
-		DDRC_CTRL_UNALIGN | DDRC_CTRL_CKE;
+	/* End the reset */
+	REG_DDRC_CTRL = 0x0;
 
 	/* use Ingenic's uboot values for the JZ4760B - those registers are undocumented */
         REG_DDRC_PMEMCTRL0 = 0xff00;
@@ -263,6 +260,11 @@ static void sdram_init(void)
 	REG_DDRC_DQS = DDRC_DQS_AUTO | DDRC_DQS_DET | DDRC_DQS_SRDET;
 	while (!(REG_DDRC_DQS & DDRC_DQS_READY));
 
+	/* Set CKE High */
+	REG_DDRC_CTRL = DDRC_CTRL_PDT_DIS | DDRC_CTRL_PRET_8 |
+                DDRC_CTRL_UNALIGN | DDRC_CTRL_CKE;
+	udelay(500);
+
 	/* Auto Refresh */
 	write_lmr(DDRC_LMR_CMD_AUREF);
 	udelay(500);
@@ -304,6 +306,7 @@ void board_init(void)
 	__cpm_start_msc0();
 	__cpm_start_msc2();
 	__cpm_select_msc_clk(0, 1);
+
 }
 
 
