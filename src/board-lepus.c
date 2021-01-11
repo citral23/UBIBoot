@@ -100,6 +100,9 @@ static void ddr_mem_init(void)
 		(DDR_MSEL << DDRC_CFG_MSEL_BIT) |
 		(DDR_HL << 15) | (DDR_QUAR << 14);
 
+	/* set CKE High */
+	REG_DDRC_CTRL |= DDRC_CTRL_CKE;
+
 	/* PREA */
 	write_lmr(DDRC_LMR_CMD_PREC);
 
